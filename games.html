@@ -81,77 +81,156 @@ button {cursor:pointer; font-family:'Chewy',sans-serif;}
 </footer>
 
 <script>
-let count=0; let autoClickers=0; const chapterMilestones=[0,50,150,300,500]; let chapter=0;
-const btn=document.getElementById('tunaBtn'); const display=document.getElementById('count');
-const catMsg=document.getElementById('catMsg'); const achievementsDiv=document.getElementById('achievements');
-const finalRebirthContainer=document.getElementById('finalRebirthContainer');
-const finalRebirthBtn=document.getElementById('finalRebirthBtn');
-const endingScene=document.getElementById('endingScene'); const chapterTitle=document.getElementById('chapterTitle');
-const tunaRainContainer=document.getElementById('tunaRain'); const sockRainContainer=document.getElementById('sockRain');
+let count = 0;
+let autoClickers = 0;
+const chapterMilestones = [0,50,150,300,500];
+let chapter = 0;
+let chaptersSeen = []; // 🐾 Track which chapters’ cutscenes have already been shown
+
+const btn = document.getElementById('tunaBtn');
+const display = document.getElementById('count');
+const catMsg = document.getElementById('catMsg');
+const achievementsDiv = document.getElementById('achievements');
+const finalRebirthContainer = document.getElementById('finalRebirthContainer');
+const finalRebirthBtn = document.getElementById('finalRebirthBtn');
+const endingScene = document.getElementById('endingScene');
+const chapterTitle = document.getElementById('chapterTitle');
+const tunaRainContainer = document.getElementById('tunaRain');
+const sockRainContainer = document.getElementById('sockRain');
 const monaContainer = document.getElementById('monaContainer');
-const startScreen=document.getElementById('startScreen'); const chapterCutscene=document.getElementById('chapterCutscene');
-const cutsceneText=document.getElementById('cutsceneText');
+const startScreen = document.getElementById('startScreen');
+const chapterCutscene = document.getElementById('chapterCutscene');
+const cutsceneText = document.getElementById('cutsceneText');
 
-const achievementList=[{name:"First Bite", threshold:1},{name:"Socktopian Apprentice", threshold:25},{name:"Tuna Tycoon", threshold:100},{name:"Mona Lisa Eater", threshold:500}];
+const achievementList = [
+  {name:"First Bite", threshold:1},
+  {name:"Socktopian Apprentice", threshold:25},
+  {name:"Tuna Tycoon", threshold:100},
+  {name:"Mona Lisa Eater", threshold:500}
+];
 
-// Start Game
-function startGame(){startScreen.style.display='none'; showChapterCutscene();}
+// 🐾 Start Game
+function startGame(){
+  startScreen.style.display='none';
+  showChapterCutscene();
+}
 
-// Tuna Click
+// 🐟 Tuna Click
 btn.addEventListener('click',()=>{
   count++;
   display.textContent=count;
-  randomCatReaction(); animateButton(); randomEvent(); updateChapter();
-  if(count>=chapterMilestones[chapterMilestones.length-1]){finalRebirthContainer.style.display='block'; catMsg.textContent="Cat: FINAL REBIRTH awaits! 🌟";}
+  randomCatReaction(); 
+  animateButton(); 
+  randomEvent(); 
+  updateChapter();
+  if(count>=chapterMilestones[chapterMilestones.length-1]){
+    finalRebirthContainer.style.display='block'; 
+    catMsg.textContent="Cat: FINAL REBIRTH awaits! 🌟";
+  }
   checkAchievements();
 });
 
-// Animate button
-function animateButton(){btn.style.transform='scale(1.2)'; setTimeout(()=>btn.style.transform='scale(1)',100);}
-function randomCatReaction(){const reactions=["Cat: Yum! More tuna!","Cat: Stop hoarding, human!","Cat: Is that all you got?","Cat: Meowww! 😺","Cat: Socks? 🧦"]; catMsg.textContent=reactions[Math.floor(Math.random()*reactions.length)];}
+// 🐾 Animate button
+function animateButton(){
+  btn.style.transform='scale(1.2)'; 
+  setTimeout(()=>btn.style.transform='scale(1)',100);
+}
+function randomCatReaction(){
+  const reactions=["Cat: Yum! More tuna!","Cat: Stop hoarding, human!","Cat: Is that all you got?","Cat: Meowww! 😺","Cat: Socks? 🧦"];
+  catMsg.textContent=reactions[Math.floor(Math.random()*reactions.length)];
+}
 
-// Shop
+// 🛒 Shop
 function buyItem(item,cost){
-  if(count>=cost){count-=cost; display.textContent=count;
+  if(count>=cost){
+    count-=cost; 
+    display.textContent=count;
     if(item==='autoClicker'){autoClickers++; catMsg.textContent=`Cat: Auto clicker! Total: ${autoClickers}`;}
     else if(item==='tunaRain'){triggerTunaRain();}
     checkAchievements();
   } else {catMsg.textContent="Cat: Not enough Tuna!";}
 }
 
-// Auto clicker
-setInterval(()=>{if(autoClickers>0){count+=autoClickers; display.textContent=count; randomCatReaction(); checkAchievements(); updateChapter();}},2000);
+// 🐾 Auto clicker
+setInterval(()=>{
+  if(autoClickers>0){
+    count+=autoClickers; 
+    display.textContent=count; 
+    randomCatReaction(); 
+    checkAchievements(); 
+    updateChapter();
+  }
+},2000);
 
-// Achievements
-function checkAchievements(){achievementsDiv.innerHTML=''; achievementList.forEach(a=>{if(count>=a.threshold){achievementsDiv.innerHTML+=`<div class="achievement">${a.name} 🏆</div>`;}});}
+// 🏆 Achievements
+function checkAchievements(){
+  achievementsDiv.innerHTML='';
+  achievementList.forEach(a=>{
+    if(count>=a.threshold){
+      achievementsDiv.innerHTML+=`<div class="achievement">${a.name} 🏆</div>`;
+    }
+  });
+}
 
-// Random Events
+// 🎲 Random Events
 function randomEvent(){
-  const chance=Math.random();
-  if(chance<0.05){let extraTuna=Math.floor(Math.random()*15+5);count+=extraTuna; display.textContent=count; catMsg.textContent=`Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`; triggerTunaRain();}
+  const chance = Math.random();
+  if(chance<0.05){
+    let extraTuna=Math.floor(Math.random()*15+5);
+    count+=extraTuna; 
+    display.textContent=count; 
+    catMsg.textContent=`Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`; 
+    triggerTunaRain();
+  }
   if(chance>0.95){triggerSockAttack();}
   if(chance>0.97){triggerMonaCameo();}
 }
 
-// Chapters
+// 📖 Chapters
 function updateChapter(){
-  for(let i=chapterMilestones.length-1;i>=0;i--){if(count>=chapterMilestones[i]){chapter=i; break;}}
+  for(let i=chapterMilestones.length-1;i>=0;i--){
+    if(count>=chapterMilestones[i]){
+      chapter=i; 
+      break;
+    }
+  }
   const titles=["Chapter 1: House Meow 🏠","Chapter 2: Tuna Apprentice 🐟","Chapter 3: Sock Hoarder 🧦","Chapter 4: Tuna Tycoon 🌟","Chapter 5: Socktopian Overlord 👑"];
-  chapterTitle.textContent=titles[chapter];
-  if([1,2,3,4].includes(chapter)){showChapterCutscene();}
+  chapterTitle.textContent = titles[chapter];
+
+  // Only show cutscene if not seen yet
+  if([1,2,3,4].includes(chapter) && !chaptersSeen.includes(chapter)){
+    showChapterCutscene();
+    chaptersSeen.push(chapter);
+  }
 }
 
-// Tuna Rain Animation
+// 🌧 Tuna Rain Animation
 function triggerTunaRain(){
-  for(let i=0;i<15;i++){const tuna=document.createElement('div'); tuna.textContent='🐟'; tuna.className='tunaDrop'; tuna.style.left=Math.random()*90+'%'; tuna.style.fontSize=(20+Math.random()*20)+'px'; tunaRainContainer.appendChild(tuna); setTimeout(()=>tuna.remove(),3000);}
+  for(let i=0;i<15;i++){
+    const tuna=document.createElement('div'); 
+    tuna.textContent='🐟'; 
+    tuna.className='tunaDrop'; 
+    tuna.style.left=Math.random()*90+'%'; 
+    tuna.style.fontSize=(20+Math.random()*20)+'px'; 
+    tunaRainContainer.appendChild(tuna); 
+    setTimeout(()=>tuna.remove(),3000);
+  }
 }
 
-// Sock Attack
+// 🧦 Sock Attack
 function triggerSockAttack(){
-  for(let i=0;i<10;i++){const sock=document.createElement('div'); sock.textContent='🧦'; sock.className='sockDrop'; sock.style.left=Math.random()*90+'%'; sock.style.fontSize=(20+Math.random()*20)+'px'; sockRainContainer.appendChild(sock); setTimeout(()=>sock.remove(),4000);}
+  for(let i=0;i<10;i++){
+    const sock=document.createElement('div'); 
+    sock.textContent='🧦'; 
+    sock.className='sockDrop'; 
+    sock.style.left=Math.random()*90+'%'; 
+    sock.style.fontSize=(20+Math.random()*20)+'px'; 
+    sockRainContainer.appendChild(sock); 
+    setTimeout(()=>sock.remove(),4000);
+  }
 }
 
-// Mona Lisa Cameo
+// 🖼 Mona Lisa Cameo
 function triggerMonaCameo(){
   if(chapter<3) return; // Only Chapters 4-5
   const mona=document.createElement('div');
@@ -168,26 +247,39 @@ function triggerMonaCameo(){
     triggerSockAttack();
     mona.remove();
   };
-  setTimeout(()=>{if(mona)mona.remove();},3000);
+  setTimeout(()=>{mona.remove();},3000);
 }
 
-// Random Mona event
-setInterval(()=>{
-  if(Math.random() < 0.03){triggerMonaCameo();}
-},2000);
+// Random Mona cameo
+setInterval(()=>{if(Math.random()<0.03){triggerMonaCameo();}},2000);
 
-// Final Rebirth
-finalRebirthBtn.addEventListener('click',()=>{endingScene.style.display='block'; catMsg.textContent="Cat: I have ascended! 🐾👑";});
+// 🌟 Final Rebirth
+finalRebirthBtn.addEventListener('click',()=>{
+  endingScene.style.display='block'; 
+  catMsg.textContent="Cat: I have ascended! 🐾👑";
+});
 
-// Reset
-function resetGame(){count=0; autoClickers=0; display.textContent=count; finalRebirthContainer.style.display='none'; endingScene.style.display='none'; catMsg.textContent="Cat: Feed me, human! 🐟"; achievementsDiv.innerHTML=''; updateChapter();}
+// 🔄 Reset Game
+function resetGame(){
+  count=0; autoClickers=0; display.textContent=count; 
+  finalRebirthContainer.style.display='none'; 
+  endingScene.style.display='none'; 
+  catMsg.textContent="Cat: Feed me, human! 🐟"; 
+  achievementsDiv.innerHTML=''; 
+  chaptersSeen = []; // reset cutscene tracking
+  updateChapter();
+}
 
-// Chapter Cutscene
+// 🎬 Chapter Cutscene
 function showChapterCutscene(){
+  btn.disabled = true; // disable clicks while cutscene plays
   const messages=["From humble beginnings… 🏠","The Tuna Apprentice rises! 🐟","Socks tremble before me 🧦","Tuna Tycoon reigns supreme 🌟","The Socktopian Overlord emerges 👑"];
-  cutsceneText.textContent=messages[chapter];
+  cutsceneText.textContent = messages[chapter];
   chapterCutscene.style.display='flex';
-  setTimeout(()=>{chapterCutscene.style.display='none';},2000);
+  setTimeout(()=>{
+    chapterCutscene.style.display='none';
+    btn.disabled = false; // re-enable clicks
+  },2000);
 }
 </script>
 </body>
