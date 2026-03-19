@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
     <title>Cat's Socktopia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
     <style>
+      /* Body styling */
       body {
         background-image: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/IMG_2313.jpeg');
         font-family: "Chewy", sans-serif;
@@ -12,79 +14,28 @@
         background-position: center;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
-        position: relative;
       }
 
+      /* Main title div */
       .divtitle {
         border: solid black 5px;
-        background-color: white; 
+        background-color: white;
         text-align: center;
         padding: 20px;
         margin: 40px auto;
         width: 80%;
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
         border-radius: 15px;
-        position: relative;
-        z-index: 10;
       }
 
-      h1 { margin-top: 0; }
-      p { font-size: 1.2em; }
-
-      /* Socktopian socks */
-      .sock {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        background-image: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/sock.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        animation: floatSock linear infinite;
-        opacity: 0.7;
+      /* Headings and paragraph styling */
+      h1 {
+        margin-top: 0;
       }
 
-      @keyframes floatSock {
-        0% { transform: translateY(-50px) rotate(0deg); }
-        100% { transform: translateY(110vh) rotate(360deg); }
+      p {
+        font-size: 1.2em;
       }
-
-      /* Paw prints */
-      .paw {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-image: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/paw.png'); /* your paw image */
-        background-size: contain;
-        background-repeat: no-repeat;
-        animation: floatPaw linear infinite;
-        opacity: 0.5;
-      }
-
-      @keyframes floatPaw {
-        0% { transform: translateY(-40px) translateX(0px) rotate(0deg); }
-        50% { transform: translateY(50vh) translateX(20px) rotate(180deg); }
-        100% { transform: translateY(110vh) translateX(-10px) rotate(360deg); }
-      }
-
-      /* Sparkles */
-      .sparkle {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        background-image: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/sparkle.png'); /* your sparkle image */
-        background-size: contain;
-        background-repeat: no-repeat;
-        animation: floatSparkle linear infinite;
-        opacity: 0.6;
-      }
-
-      @keyframes floatSparkle {
-        0% { transform: translateY(-20px) translateX(0px) scale(0.8); }
-        50% { transform: translateY(50vh) translateX(10px) scale(1.2); }
-        100% { transform: translateY(110vh) translateX(-10px) scale(0.8); }
-      }
-
     </style>
   </head>
   <body>
@@ -92,22 +43,5 @@
       <h1>Welcome to Socktopia, the kingdom of Cat the 1st.</h1>
       <p>Cat: This is my "website", courtesy of human ruler Me. You may gaze upon my literature, entertaining games, and more.</p>
     </div>
-
-    <!-- Floating Socks -->
-    <div class="sock" style="left: 10%; animation-duration: 12s;"></div>
-    <div class="sock" style="left: 30%; animation-duration: 15s;"></div>
-    <div class="sock" style="left: 60%; animation-duration: 10s;"></div>
-    <div class="sock" style="left: 80%; animation-duration: 18s;"></div>
-
-    <!-- Floating Paw Prints -->
-    <div class="paw" style="left: 20%; animation-duration: 14s;"></div>
-    <div class="paw" style="left: 50%; animation-duration: 17s;"></div>
-    <div class="paw" style="left: 70%; animation-duration: 13s;"></div>
-
-    <!-- Floating Sparkles -->
-    <div class="sparkle" style="left: 15%; animation-duration: 10s;"></div>
-    <div class="sparkle" style="left: 45%; animation-duration: 12s;"></div>
-    <div class="sparkle" style="left: 75%; animation-duration: 8s;"></div>
-
   </body>
 </html>
