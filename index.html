@@ -1,36 +1,62 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
-    <title>Cat's Socktopia</title>
-    <style>
-      html, body {
-      height: 100%; /* crucial for background cover */
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cat's Socktopia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-    }
-      body {
+      font-family: "Chewy", sans-serif;
       background-image: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/IMG_2313.jpeg');
-      font-family:"Chewy";
-      background-repeat:no-repeat;
-      background-size:cover;
-}
-    </style>
-  </head>
-  <body>
-    <style>
-      .divtitle {
-        border:solid black 5px;
-        background-color:white; 
-        text-align:center;
-      }
-    </style>
-    <div class="divtitle">
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column; /* stack header, main, footer vertically */
+    }
+
+    .divtitle {
+      border: solid black 5px;
+      background-color: white;
+      text-align: center;
+      padding: 20px;
+      margin: 40px auto;
+      width: 80%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      border-radius: 15px;
+    }
+
+    h1 { margin-top: 0; }
+    p { font-size: 1.2em; }
+
+    main {
+      flex: 1; /* takes all available space between header and footer */
+    }
+
+    footer {
+      background-color: white;
+      text-align: center;
+      padding: 10px;
+      border-top: solid black 3px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="divtitle">
     <h1>Welcome to Socktopia, the kingdom of Cat the 1st.</h1>
-      <p>Cat: This is my "website", courtesy of human ruler Me. You may gaze opon my literature, entertaining games and more.</p>
-      </div>
-    <footer>
-  <p>&copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾</p>
-</footer>
-  </body>
+    <p>Cat: This is my "website", courtesy of human ruler Me. You may gaze upon my literature, entertaining games, and more.</p>
+  </div>
+
+  <main>
+    <!-- More content of Socktopia can go here -->
+  </main>
+
+  <footer>
+    &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
+  </footer>
+</body>
 </html>
