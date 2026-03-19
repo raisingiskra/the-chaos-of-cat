@@ -6,79 +6,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
 <style>
   html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    margin:0; padding:0; height:100%;
     font-family: 'Chewy', sans-serif;
     background: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/IMG_2313.jpeg') no-repeat center center;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
   }
-
-  main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
+  header, footer {
+    text-align:center; background:white; padding:15px; border-bottom:3px solid black;
   }
-
+  footer {border-top:3px solid black; border-bottom:none;}
+  main {flex:1; display:flex; justify-content:center; align-items:flex-start; padding-top:50px;}
   .tunaclickergame {
-    border: solid #0C325B;
-    background-color: #00B997;
-    text-align: center;
-    padding: 20px;
-    width: 40%;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    border-radius: 15px;
+    width:40%; background-color:#00B997; border:3px solid #0C325B; border-radius:15px;
+    padding:20px; box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:center;
   }
-
-  button {
-    cursor: pointer;
-    font-family: 'Chewy', sans-serif;
-  }
-
-  .shop-item {
-    margin: 10px 0;
-  }
-
-  .achievement {
-    background-color: #FFD700;
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 5px;
-  }
-
-  #endingScene {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.9);
-    color:white;
-    font-size:2em;
-    text-align:center;
-    padding-top:20%;
-    z-index:9999;
-  }
-
+  button {cursor:pointer; font-family:'Chewy', sans-serif;}
+  .shop-item {margin:10px 0;}
+  .achievement {background-color:#FFD700; margin:5px 0; padding:5px; border-radius:5px;}
+  #finalRebirthContainer {display:none; margin-top:20px;}
   #finalRebirthBtn {
-    font-size:1.8em;
-    background: linear-gradient(to right, #4AA5E0, #7FC4EB);
-    border-radius:15px;
-    padding:10px 20px;
-    cursor:pointer;
+    font-size:1.8em; background: linear-gradient(to right,#4AA5E0,#7FC4EB);
+    border-radius:15px; padding:10px 20px; cursor:pointer;
+    transition: transform 0.2s;
+  }
+  #finalRebirthBtn:hover {transform: scale(1.1);}
+  #endingScene {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.95); color:white; font-size:2em;
+    text-align:center; padding-top:20%; z-index:9999;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div style="text-align:center; background:white; padding:20px; border-bottom:3px solid black;">
-    <h1>Socktopia Games 🐾</h1>
-    <p>Cat the 1st's Tuna Clicker Extravaganza</p>
-  </div>
+  <h1>Socktopia Games 🐾</h1>
+  <p>Cat the 1st's Tuna Clicker Extravaganza</p>
 </header>
 
 <main>
@@ -91,17 +55,17 @@
     <h3>Shop 🛒</h3>
     <div id="shop">
       <div class="shop-item">
-        <button onclick="buyItem('autoClicker', 10)">Buy Auto Clicker (10 Tuna)</button>
+        <button onclick="buyItem('autoClicker',10)">Buy Auto Clicker (10 Tuna)</button>
       </div>
       <div class="shop-item">
-        <button onclick="buyItem('tunaRain', 25)">Trigger Tuna Rain 🌧️🐟 (25 Tuna)</button>
+        <button onclick="buyItem('tunaRain',25)">Trigger Tuna Rain 🌧️🐟 (25 Tuna)</button>
       </div>
     </div>
 
     <h3>Achievements 🏆</h3>
     <div id="achievements"></div>
 
-    <div id="finalRebirthContainer" style="display:none; margin-top:20px;">
+    <div id="finalRebirthContainer">
       <button id="finalRebirthBtn">🌟 FINAL REBIRTH 🌟</button>
     </div>
 
@@ -114,128 +78,100 @@
   </div>
 </main>
 
-<footer style="background:white; text-align:center; padding:10px; border-top:solid black 3px;">
+<footer>
   &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
 </footer>
 
 <script>
-let count = 0;
-let autoClickers = 0;
-const targetTuna = 50;
-const btn = document.getElementById('tunaBtn');
-const display = document.getElementById('count');
-const catMsg = document.getElementById('catMsg');
-const achievementsDiv = document.getElementById('achievements');
-const finalRebirthContainer = document.getElementById('finalRebirthContainer');
-const finalRebirthBtn = document.getElementById('finalRebirthBtn');
-const endingScene = document.getElementById('endingScene');
+let count=0;
+let autoClickers=0;
+const targetTuna=50;
+const btn=document.getElementById('tunaBtn');
+const display=document.getElementById('count');
+const catMsg=document.getElementById('catMsg');
+const achievementsDiv=document.getElementById('achievements');
+const finalRebirthContainer=document.getElementById('finalRebirthContainer');
+const finalRebirthBtn=document.getElementById('finalRebirthBtn');
+const endingScene=document.getElementById('endingScene');
 
-const achievementList = [
-  {name: "First Bite", threshold: 1},
-  {name: "Socktopian Apprentice", threshold: 25},
-  {name: "Tuna Tycoon", threshold: 100},
-  {name: "Mona Lisa Eater", threshold: 500},
+const achievementList=[
+  {name:"First Bite", threshold:1},
+  {name:"Socktopian Apprentice", threshold:25},
+  {name:"Tuna Tycoon", threshold:100},
+  {name:"Mona Lisa Eater", threshold:500}
 ];
 
 // Click Tuna
-btn.addEventListener('click', () => {
+btn.addEventListener('click',()=>{
   count++;
-  display.textContent = count;
+  display.textContent=count;
   randomCatReaction();
   checkAchievements();
   animateButton();
   randomEvent();
-  if(count >= targetTuna){
-    finalRebirthContainer.style.display = 'block';
-    catMsg.textContent = "Cat: You have pleased me… FINAL REBIRTH awaits! 🌟";
-  }
+  if(count>=targetTuna){finalRebirthContainer.style.display='block';
+  catMsg.textContent="Cat: You have pleased me… FINAL REBIRTH awaits! 🌟";}
 });
 
-function randomCatReaction() {
-  const reactions = [
-    "Cat: Yum! More tuna!",
-    "Cat: Stop hoarding, human!",
-    "Cat: Is that all you got?",
-    "Cat: Meowwwww! 😺",
-    "Cat: Socks? I see socks… 🧦"
-  ];
-  catMsg.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+function randomCatReaction(){
+  const reactions=[
+    "Cat: Yum! More tuna!","Cat: Stop hoarding, human!","Cat: Is that all you got?",
+    "Cat: Meowwwww! 😺","Cat: Socks? I see socks… 🧦"];
+  catMsg.textContent=reactions[Math.floor(Math.random()*reactions.length)];
 }
 
-function animateButton() {
-  btn.style.transform = 'scale(1.2)';
-  setTimeout(() => btn.style.transform = 'scale(1)', 100);
+function animateButton(){
+  btn.style.transform='scale(1.2)';
+  setTimeout(()=>btn.style.transform='scale(1)',100);
 }
 
-// Shop Functions
-function buyItem(item, cost) {
-  if(count >= cost){
-    count -= cost;
-    display.textContent = count;
-    if(item === 'autoClicker') {
-      autoClickers++;
-      catMsg.textContent = `Cat: Auto clicker acquired! Total: ${autoClickers}`;
-    } else if(item === 'tunaRain') {
-      let rainTuna = Math.floor(Math.random()*20+10);
-      count += rainTuna;
-      display.textContent = count;
-      catMsg.textContent = `Cat: Tuna Rain! +${rainTuna} Tuna! 🌧️🐟`;
-    }
+function buyItem(item,cost){
+  if(count>=cost){
+    count-=cost;
+    display.textContent=count;
+    if(item==='autoClicker'){autoClickers++;catMsg.textContent=`Cat: Auto clicker acquired! Total: ${autoClickers}`;}
+    else if(item==='tunaRain'){let rainTuna=Math.floor(Math.random()*20+10);count+=rainTuna;display.textContent=count;catMsg.textContent=`Cat: Tuna Rain! +${rainTuna} Tuna! 🌧️🐟`;}
     checkAchievements();
-  } else {
-    catMsg.textContent = "Cat: Not enough Tuna!";
-  }
+  }else{catMsg.textContent="Cat: Not enough Tuna!";}
 }
 
 // Auto Clicker
-setInterval(() => {
-  if(autoClickers > 0){
-    count += autoClickers;
-    display.textContent = count;
+setInterval(()=>{
+  if(autoClickers>0){
+    count+=autoClickers;
+    display.textContent=count;
     randomCatReaction();
     checkAchievements();
   }
-}, 2000);
+},2000);
 
 // Achievements
-function checkAchievements() {
-  achievementsDiv.innerHTML = '';
-  achievementList.forEach(a => {
-    if(count >= a.threshold){
-      achievementsDiv.innerHTML += `<div class="achievement">${a.name} 🏆</div>`;
-    }
+function checkAchievements(){
+  achievementsDiv.innerHTML='';
+  achievementList.forEach(a=>{
+    if(count>=a.threshold){achievementsDiv.innerHTML+=`<div class="achievement">${a.name} 🏆</div>`;}
   });
 }
 
 // Random Events
-function randomEvent() {
-  const chance = Math.random();
-  if(chance < 0.05){
-    const extraTuna = Math.floor(Math.random()*15+5);
-    count += extraTuna;
-    display.textContent = count;
-    catMsg.textContent = `Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`;
-  }
-  if(chance > 0.95){
-    catMsg.textContent = `Cat: Sock Attack! 🧦💥`;
-  }
+function randomEvent(){
+  const chance=Math.random();
+  if(chance<0.05){const extraTuna=Math.floor(Math.random()*15+5);count+=extraTuna;display.textContent=count;catMsg.textContent=`Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`;}
+  if(chance>0.95){catMsg.textContent=`Cat: Sock Attack! 🧦💥`;}
 }
 
-// Final Rebirth button
-finalRebirthBtn.addEventListener('click', () => {
-  endingScene.style.display = 'block';
-  catMsg.textContent = "Cat: I have ascended! 🐾👑";
+// Final Rebirth
+finalRebirthBtn.addEventListener('click',()=>{
+  endingScene.style.display='block';
+  catMsg.textContent="Cat: I have ascended! 🐾👑";
 });
 
-// Reset / restart game
 function resetGame(){
-  count = 0;
-  autoClickers = 0;
-  display.textContent = count;
-  finalRebirthContainer.style.display = 'none';
-  endingScene.style.display = 'none';
-  catMsg.textContent = "Cat: Feed me, human! 🐟";
-  achievementsDiv.innerHTML = '';
+  count=0; autoClickers=0; display.textContent=count;
+  finalRebirthContainer.style.display='none';
+  endingScene.style.display='none';
+  catMsg.textContent="Cat: Feed me, human! 🐟";
+  achievementsDiv.innerHTML='';
 }
 </script>
 
