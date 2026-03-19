@@ -2,177 +2,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Socktopia Games - Tuna Clicker</title>
+<title>Socktopia Games - Tuna Saga</title>
 <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
 <style>
-  html, body {
-    margin:0; padding:0; height:100%;
-    font-family: 'Chewy', sans-serif;
-    background: url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/IMG_2313.jpeg') no-repeat center center;
-    background-size: cover;
-    display: flex; flex-direction: column;
-  }
-  header, footer {
-    text-align:center; background:white; padding:15px; border-bottom:3px solid black;
-  }
-  footer {border-top:3px solid black; border-bottom:none;}
-  main {flex:1; display:flex; justify-content:center; align-items:flex-start; padding-top:50px;}
-  .tunaclickergame {
-    width:40%; background-color:#00B997; border:3px solid #0C325B; border-radius:15px;
-    padding:20px; box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:center;
-  }
-  button {cursor:pointer; font-family:'Chewy', sans-serif;}
-  .shop-item {margin:10px 0;}
-  .achievement {background-color:#FFD700; margin:5px 0; padding:5px; border-radius:5px;}
-  #finalRebirthContainer {display:none; margin-top:20px;}
-  #finalRebirthBtn {
-    font-size:1.8em; background: linear-gradient(to right,#4AA5E0,#7FC4EB);
-    border-radius:15px; padding:10px 20px; cursor:pointer;
-    transition: transform 0.2s;
-  }
-  #finalRebirthBtn:hover {transform: scale(1.1);}
-  #endingScene {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.95); color:white; font-size:2em;
-    text-align:center; padding-top:20%; z-index:9999;
-  }
+html, body {margin:0; padding:0; height:100%; font-family:'Chewy',sans-serif;
+background:url('https://webtinq.nl/testjsjsjjsjsjsjsjs/afbeeldingen/IMG_2313.jpeg') no-repeat center center;
+background-size:cover; display:flex; flex-direction:column;}
+header, footer {text-align:center; background:white; padding:15px; border-bottom:3px solid black;}
+footer {border-top:3px solid black; border-bottom:none;}
+main {flex:1; display:flex; justify-content:center; align-items:flex-start; padding-top:50px;}
+.tunaclickergame {width:45%; background-color:#00B997; border:3px solid #0C325B; border-radius:15px; padding:20px; box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:center; position:relative;}
+button {cursor:pointer; font-family:'Chewy',sans-serif;}
+.shop-item {margin:10px 0;}
+.achievement {background-color:#FFD700; margin:5px 0; padding:5px; border-radius:5px;}
+#finalRebirthContainer {display:none; margin-top:20px;}
+#finalRebirthBtn {font-size:1.8em; background: linear-gradient(to right,#4AA5E0,#7FC4EB); border-radius:15px; padding:10px 20px; cursor:pointer; transition: transform 0.2s;}
+#finalRebirthBtn:hover {transform:scale(1.1);}
+#endingScene {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); color:white; font-size:2em; text-align:center; padding-top:15%; z-index:9999;}
+#tunaRain {position:absolute; top:0; left:50%; transform:translateX(-50%); pointer-events:none;}
+.tunaDrop {position:absolute; width:30px; animation:fall 2s linear forwards;}
+@keyframes fall {0%{top:-40px;}100%{top:100%;}}
+.sockDrop {position:absolute; width:40px; animation:sockFall 3s linear forwards;}
+@keyframes sockFall {0%{top:-50px;}100%{top:100%;}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Socktopia Games 🐾</h1>
-  <p>Cat the 1st's Tuna Clicker Extravaganza</p>
+<h1>Socktopia Tuna Saga 🐾</h1>
+<p>Cat the 1st's epic journey from house meow → Socktopian Overlord</p>
 </header>
 
 <main>
-  <div class="tunaclickergame">
-    <h2>Feed Cat the 1st! 🐟</h2>
-    <button id="tunaBtn" style="font-size:2em;">🐟 Click Me!</button>
-    <p>Tuna Count: <span id="count">0</span></p>
-    <p id="catMsg">Cat: Feed me, human!</p>
+<div class="tunaclickergame">
+<h2 id="chapterTitle">Chapter 1: House Meow 🏠</h2>
+<button id="tunaBtn" style="font-size:2em;">🐟 Click Me!</button>
+<p>Tuna Count: <span id="count">0</span></p>
+<p id="catMsg">Cat: Feed me, human!</p>
 
-    <h3>Shop 🛒</h3>
-    <div id="shop">
-      <div class="shop-item">
-        <button onclick="buyItem('autoClicker',10)">Buy Auto Clicker (10 Tuna)</button>
-      </div>
-      <div class="shop-item">
-        <button onclick="buyItem('tunaRain',25)">Trigger Tuna Rain 🌧️🐟 (25 Tuna)</button>
-      </div>
-    </div>
+<h3>Shop 🛒</h3>
+<div id="shop">
+  <div class="shop-item"><button onclick="buyItem('autoClicker',10)">Buy Auto Clicker (10 Tuna)</button></div>
+  <div class="shop-item"><button onclick="buyItem('tunaRain',25)">Trigger Tuna Rain 🌧️🐟 (25 Tuna)</button></div>
+</div>
 
-    <h3>Achievements 🏆</h3>
-    <div id="achievements"></div>
+<h3>Achievements 🏆</h3>
+<div id="achievements"></div>
 
-    <div id="finalRebirthContainer">
-      <button id="finalRebirthBtn">🌟 FINAL REBIRTH 🌟</button>
-    </div>
+<div id="finalRebirthContainer">
+  <button id="finalRebirthBtn">🌟 FINAL REBIRTH 🌟</button>
+</div>
 
-    <div id="endingScene">
-      🐾 Cat the 1st has ascended to Socktopian Overlord! 🐾<br>
-      🌧️ Tuna rains from the sky! 🌧️🐟<br>
-      🧦 Socks tremble in fear! 🧦<br>
-      <button onclick="resetGame()" style="font-size:1.5em; margin-top:20px; cursor:pointer;">Restart Tuna Empire</button>
-    </div>
-  </div>
+<div id="endingScene">
+🐾 Cat the 1st has ascended to Socktopian Overlord! 🐾<br>
+🌧️ Tuna rains from the sky! 🌧️🐟<br>
+🧦 Socks tremble in fear! 🧦<br>
+<button onclick="resetGame()" style="font-size:1.5em; margin-top:20px; cursor:pointer;">Restart Tuna Empire</button>
+</div>
+
+<div id="tunaRain"></div>
+</div>
 </main>
 
 <footer>
-  &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
+&copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
 </footer>
 
 <script>
-let count=0;
-let autoClickers=0;
-const targetTuna=50;
-const btn=document.getElementById('tunaBtn');
-const display=document.getElementById('count');
-const catMsg=document.getElementById('catMsg');
-const achievementsDiv=document.getElementById('achievements');
+let count=0; let autoClickers=0; const chapterMilestones=[0,50,150,300,500]; let chapter=0;
+const btn=document.getElementById('tunaBtn'); const display=document.getElementById('count');
+const catMsg=document.getElementById('catMsg'); const achievementsDiv=document.getElementById('achievements');
 const finalRebirthContainer=document.getElementById('finalRebirthContainer');
 const finalRebirthBtn=document.getElementById('finalRebirthBtn');
 const endingScene=document.getElementById('endingScene');
+const chapterTitle=document.getElementById('chapterTitle');
+const tunaRainContainer=document.getElementById('tunaRain');
 
-const achievementList=[
-  {name:"First Bite", threshold:1},
-  {name:"Socktopian Apprentice", threshold:25},
-  {name:"Tuna Tycoon", threshold:100},
-  {name:"Mona Lisa Eater", threshold:500}
-];
+const achievementList=[{name:"First Bite", threshold:1},{name:"Socktopian Apprentice", threshold:25},{name:"Tuna Tycoon", threshold:100},{name:"Mona Lisa Eater", threshold:500}];
 
-// Click Tuna
+// Tuna click
 btn.addEventListener('click',()=>{
   count++;
   display.textContent=count;
-  randomCatReaction();
+  randomCatReaction(); animateButton(); randomEvent(); updateChapter();
+  if(count>=chapterMilestones[chapterMilestones.length-1]){
+    finalRebirthContainer.style.display='block'; catMsg.textContent="Cat: FINAL REBIRTH awaits! 🌟";
+  }
   checkAchievements();
-  animateButton();
-  randomEvent();
-  if(count>=targetTuna){finalRebirthContainer.style.display='block';
-  catMsg.textContent="Cat: You have pleased me… FINAL REBIRTH awaits! 🌟";}
 });
 
+// Animate button
+function animateButton(){btn.style.transform='scale(1.2)'; setTimeout(()=>btn.style.transform='scale(1)',100);}
+
+// Random Cat reaction
 function randomCatReaction(){
-  const reactions=[
-    "Cat: Yum! More tuna!","Cat: Stop hoarding, human!","Cat: Is that all you got?",
-    "Cat: Meowwwww! 😺","Cat: Socks? I see socks… 🧦"];
+  const reactions=["Cat: Yum! More tuna!","Cat: Stop hoarding, human!","Cat: Is that all you got?","Cat: Meowww! 😺","Cat: Socks? 🧦"];
   catMsg.textContent=reactions[Math.floor(Math.random()*reactions.length)];
 }
 
-function animateButton(){
-  btn.style.transform='scale(1.2)';
-  setTimeout(()=>btn.style.transform='scale(1)',100);
-}
-
+// Shop
 function buyItem(item,cost){
-  if(count>=cost){
-    count-=cost;
-    display.textContent=count;
-    if(item==='autoClicker'){autoClickers++;catMsg.textContent=`Cat: Auto clicker acquired! Total: ${autoClickers}`;}
-    else if(item==='tunaRain'){let rainTuna=Math.floor(Math.random()*20+10);count+=rainTuna;display.textContent=count;catMsg.textContent=`Cat: Tuna Rain! +${rainTuna} Tuna! 🌧️🐟`;}
+  if(count>=cost){count-=cost; display.textContent=count;
+    if(item==='autoClicker'){autoClickers++; catMsg.textContent=`Cat: Auto clicker! Total: ${autoClickers}`;}
+    else if(item==='tunaRain'){triggerTunaRain();}
     checkAchievements();
-  }else{catMsg.textContent="Cat: Not enough Tuna!";}
+  } else {catMsg.textContent="Cat: Not enough Tuna!";}
 }
 
-// Auto Clicker
-setInterval(()=>{
-  if(autoClickers>0){
-    count+=autoClickers;
-    display.textContent=count;
-    randomCatReaction();
-    checkAchievements();
-  }
-},2000);
+// Auto clicker
+setInterval(()=>{if(autoClickers>0){count+=autoClickers; display.textContent=count; randomCatReaction(); checkAchievements(); updateChapter();}},2000);
 
 // Achievements
-function checkAchievements(){
-  achievementsDiv.innerHTML='';
-  achievementList.forEach(a=>{
-    if(count>=a.threshold){achievementsDiv.innerHTML+=`<div class="achievement">${a.name} 🏆</div>`;}
-  });
-}
+function checkAchievements(){achievementsDiv.innerHTML=''; achievementList.forEach(a=>{if(count>=a.threshold){achievementsDiv.innerHTML+=`<div class="achievement">${a.name} 🏆</div>`;}});}
 
-// Random Events
+// Random events
 function randomEvent(){
   const chance=Math.random();
-  if(chance<0.05){const extraTuna=Math.floor(Math.random()*15+5);count+=extraTuna;display.textContent=count;catMsg.textContent=`Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`;}
-  if(chance>0.95){catMsg.textContent=`Cat: Sock Attack! 🧦💥`;}
+  if(chance<0.05){let extraTuna=Math.floor(Math.random()*15+5);count+=extraTuna; display.textContent=count; catMsg.textContent=`Cat: Surprise Tuna Rain! +${extraTuna} Tuna! 🌧️🐟`; triggerTunaRain();}
+  if(chance>0.95){triggerSockAttack();}
+}
+
+// Chapters
+function updateChapter(){
+  for(let i=chapterMilestones.length-1;i>=0;i--){
+    if(count>=chapterMilestones[i]){chapter=i; break;}
+  }
+  const titles=["Chapter 1: House Meow 🏠","Chapter 2: Tuna Apprentice 🐟","Chapter 3: Sock Hoarder 🧦","Chapter 4: Tuna Tycoon 🌟","Chapter 5: Socktopian Overlord 👑"];
+  chapterTitle.textContent=titles[chapter];
+}
+
+// Tuna Rain Animation
+function triggerTunaRain(){
+  for(let i=0;i<15;i++){
+    const tuna=document.createElement('img'); tuna.src='https://em-content.zobj.net/source/microsoft-teams/337/fish_1f41f.png';
+    tuna.className='tunaDrop'; tuna.style.left=Math.random()*80+'%'; tuna.style.width='30px';
+    tunaRainContainer.appendChild(tuna);
+    setTimeout(()=>tuna.remove(),2000);
+  }
+}
+
+// Sock attack animation
+function triggerSockAttack(){
+  for(let i=0;i<10;i++){
+    const sock=document.createElement('div'); sock.textContent='🧦'; sock.className='sockDrop';
+    sock.style.left=Math.random()*80+'%'; sock.style.fontSize='2em';
+    tunaRainContainer.appendChild(sock);
+    setTimeout(()=>sock.remove(),3000);
+  }
 }
 
 // Final Rebirth
-finalRebirthBtn.addEventListener('click',()=>{
-  endingScene.style.display='block';
-  catMsg.textContent="Cat: I have ascended! 🐾👑";
-});
+finalRebirthBtn.addEventListener('click',()=>{endingScene.style.display='block'; catMsg.textContent="Cat: I have ascended! 🐾👑";});
 
-function resetGame(){
-  count=0; autoClickers=0; display.textContent=count;
-  finalRebirthContainer.style.display='none';
-  endingScene.style.display='none';
-  catMsg.textContent="Cat: Feed me, human! 🐟";
-  achievementsDiv.innerHTML='';
-}
+// Reset
+function resetGame(){count=0; autoClickers=0; display.textContent=count; finalRebirthContainer.style.display='none'; endingScene.style.display='none'; catMsg.textContent="Cat: Feed me, human! 🐟"; achievementsDiv.innerHTML=''; updateChapter();}
 </script>
 
 </body>
