@@ -5,100 +5,27 @@
 <title>Socktopian Epic Adventure 🐾</title>
 <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
 <style>
-body {
-  margin:0;
-  font-family:'Chewy',sans-serif;
-  background: linear-gradient(to bottom,#0b1e3f,#1a406b);
-  color:white;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-header, footer {
-  text-align:center;
-  padding:15px;
-  background:#111;
-  border-bottom:2px solid #333;
-}
-footer {
-  border-top:2px solid #333;
-  border-bottom:none;
-}
-h1 {
-  margin:0;
-  font-size:2.5em;
-  text-shadow:0 0 15px #0ff;
-}
-main {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:20px;
-}
-.scene {
-  background: rgba(255,255,255,0.05);
-  border:2px solid #0C325B;
-  border-radius:15px;
-  width:80%;
-  max-width:800px;
-  margin:20px 0;
-  padding:20px;
-  text-align:center;
-  white-space: pre-line;
-}
-button.choice {
-  margin:10px;
-  padding:10px 20px;
-  font-family:'Chewy',sans-serif;
-  font-size:1.2em;
-  cursor:pointer;
-  border-radius:10px;
-  border:2px solid #0C325B;
-  background:#1a406b;
-  color:#0ff;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-button.choice:hover {
-  transform: scale(1.1);
-  box-shadow:0 0 20px #0ff;
-}
-#scoreboard {
-  margin:15px 0;
-  font-size:1.2em;
-}
-#ending {
-  display:none;
-  font-size:1.5em;
-  margin-top:30px;
-  text-align:center;
-  white-space: pre-line;
-}
-#ending button {
-  margin-top:20px;
-  padding:10px 20px;
-  font-size:1.2em;
-  cursor:pointer;
-  border-radius:10px;
-  background:#1a406b;
-  border:2px solid #0C325B;
-  color:#0ff;
-}
-.emoji-fall {
-  position:absolute;
-  top:-50px;
-  font-size:2em;
-  animation:fall 2s linear forwards;
-}
-@keyframes fall {
-  0%{top:-50px;}
-  100%{top:100%;}
-}
+body { margin:0; font-family:'Chewy',sans-serif; background: linear-gradient(to bottom,#0b1e3f,#1a406b); color:white; min-height:100vh; }
+header, footer { text-align:center; padding:15px; background:#111; border-bottom:2px solid #333; }
+footer { border-top:2px solid #333; border-bottom:none; }
+h1 { margin:0; font-size:2.5em; text-shadow:0 0 15px #0ff; }
+main { display:flex; flex-direction:column; align-items:center; padding:20px; }
+.scene { background: rgba(255,255,255,0.05); border:2px solid #0C325B; border-radius:15px; width:80%; max-width:800px; margin:20px 0; padding:20px; text-align:center; }
+button.choice { margin:10px; padding:10px 20px; font-family:'Chewy',sans-serif; font-size:1.2em; cursor:pointer; border-radius:10px; border:2px solid #0C325B; background:#1a406b; color:#0ff; transition: transform 0.2s, box-shadow 0.2s; }
+button.choice:hover { transform: scale(1.1); box-shadow:0 0 20px #0ff; }
+#scoreboard { margin:15px 0; font-size:1.2em; }
+#ending { display:none; font-size:1.5em; margin-top:30px; text-align:center; white-space: pre-line; }
+#ending button { margin-top:20px; padding:10px 20px; font-size:1.2em; cursor:pointer; border-radius:10px; background:#1a406b; border:2px solid #0C325B; color:#0ff; }
+.emoji-fall { position:absolute; top:-50px; font-size:2em; animation:fall 2s linear forwards; }
+@keyframes fall { 0%{top:-50px;} 100%{top:100%;} }
+#cheatButton { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background:#1a406b; border:2px solid #0C325B; color:#0ff; border-radius:10px; font-family:'Chewy', sans-serif; cursor: pointer; z-index: 9999; }
 </style>
 </head>
 <body>
 
 <header>
 <h1>🐾 Socktopian Epic Adventure 🐾</h1>
-<p>Make choices for Cat and unlock all endings (and a secret trophy!)</p>
+<p>Make choices for Cat and unlock all endings (and the Secret Trophy!)</p>
 </header>
 
 <main>
@@ -114,33 +41,10 @@ Tuna: <span id="tunaScore">0</span> | Socks: <span id="socksScore">0</span> | Ch
 &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
 </footer>
 
+<!-- 🐾 Cheat Button -->
+<button id="cheatButton">Activate Cheat 🐾</button>
+
 <script>
-  // --- Cheat Snippet: Unlock All Endings Instantly ---
-function unlockAllEndings() {
-    // Fill the unlockedEndings array with all endings
-    const endings = [
-        '💥 Chaos Master Ending!',
-        '🐟 Tuna Tycoon Ending 🐟',
-        '🧦 Socktopian Overlord Ending 🧦',
-        '🌙 Moon Cat Ending 🌙',
-        '😹 Kittens’ Friend Ending 😹',
-        '😸 Neutral Napper Ending 😸'
-    ];
-    
-    endings.forEach(e => {
-        if(!unlockedEndings.includes(e)) unlockedEndings.push(e);
-    });
-
-    alert("🐾 Cheat activated! All endings unlocked. Secret Trophy available! 🏆");
-    showEnding(); // Immediately show ending screen
-}
-
-// --- Optional: Bind to a key for easy cheat access ---
-document.addEventListener('keydown', (e) => {
-    if(e.key === "C") { // Press 'C' for Cat Cheat
-        unlockAllEndings();
-    }
-});
 // --- Game State ---
 let sceneIndex = 0;
 let scores = {tuna:0, socks:0, chaos:0};
@@ -148,61 +52,61 @@ let unlockedEndings = [];
 
 // --- Scenes ---
 const scenes = [
-{ id:'scene1', text:`Scene 1: Breakfast Chaos\n\nCat is hungry and sees breakfast on the table!`,
+{ text:`Scene 1: Breakfast Chaos\n\nCat is hungry and sees breakfast on the table!`,
   choices:[
     { text:"Eat the tuna 🐟", effect:()=>{scores.tuna+=5; scores.chaos+=1; randomEmoji('🐟'); nextScene();} },
     { text:"Knock over the milk 🥛", effect:()=>{scores.chaos+=5; randomEmoji('🥛'); nextScene();} },
     { text:"Ignore human and nap 😸", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene2', text:`Scene 2: Sock Mayhem\n\nA pile of socks lies in the corner. What will Cat do?`,
+{ text:`Scene 2: Sock Mayhem\n\nA pile of socks lies in the corner. What will Cat do?`,
   choices:[
     { text:"Hoard socks 🧦", effect:()=>{scores.socks+=5; randomEmoji('🧦'); nextScene();} },
     { text:"Throw socks at kittens 😹", effect:()=>{scores.chaos+=5; randomEmoji('🧦'); nextScene();} },
     { text:"Nap on sock pile 💤", effect:()=>{scores.chaos+=1; scores.tuna+=1; nextScene();} }
 ]},
-{ id:'scene3', text:`Scene 3: Mona Lisa Mischief\n\nCat spots the Mona Lisa!`,
+{ text:`Scene 3: Mona Lisa Mischief\n\nCat spots the Mona Lisa!`,
   choices:[
     { text:"Admire painting 🖼️", effect:()=>{scores.chaos+=1; nextScene();} },
     { text:"Eat painting 😼", effect:()=>{scores.chaos+=10; scores.tuna+=5; randomEmoji('🖼️'); nextScene();} },
     { text:"Ignore and nap 😽", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene4', text:`Scene 4: Tuna Fishing Frenzy\n\nCat sees a tub full of water and thinks: Tuna!`,
+{ text:`Scene 4: Tuna Fishing Frenzy\n\nCat sees a tub full of water and thinks: Tuna!`,
   choices:[
     { text:"Fish in the tub 🐟", effect:()=>{scores.tuna+=5; randomEmoji('🐟'); nextScene();} },
     { text:"Steal human’s tuna 🐟", effect:()=>{scores.tuna+=10; scores.chaos+=2; randomEmoji('🐟'); nextScene();} },
     { text:"Nap instead 😸", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene5', text:`Scene 5: Kittens Revolt\n\nKittens challenge Cat for sock supremacy!`,
+{ text:`Scene 5: Kittens Revolt\n\nKittens challenge Cat for sock supremacy!`,
   choices:[
     { text:"Train kittens 😹", effect:()=>{scores.socks+=3; scores.chaos+=1; nextScene();} },
     { text:"Fight kittens 😼", effect:()=>{scores.chaos+=5; randomEmoji('😹'); nextScene();} },
     { text:"Cuddle kittens 😽", effect:()=>{scores.tuna+=2; nextScene();} }
 ]},
-{ id:'scene6', text:`Scene 6: Sock Portal Discovery\n\nA swirling sock portal appears!`,
+{ text:`Scene 6: Sock Portal Discovery\n\nA swirling sock portal appears!`,
   choices:[
     { text:"Jump in portal 🌀", effect:()=>{scores.chaos+=3; randomEmoji('🌀'); nextScene();} },
     { text:"Hoard socks 🧦", effect:()=>{scores.socks+=5; nextScene();} },
     { text:"Nap on portal 😸", effect:()=>{scores.tuna+=2; nextScene();} }
 ]},
-{ id:'scene7', text:`Scene 7: Moon Heist\n\nThe moon is close and shiny!`,
+{ text:`Scene 7: Moon Heist\n\nThe moon is close and shiny!`,
   choices:[
     { text:"Teleport to moon 🌙", effect:()=>{scores.chaos+=5; randomEmoji('🌙'); nextScene();} },
     { text:"Steal moon cheese 🧀", effect:()=>{scores.tuna+=5; scores.chaos+=3; randomEmoji('🧀'); nextScene();} },
     { text:"Nap under stars 😽", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene8', text:`Scene 8: Human vs Cat Toy Showdown\n\nToys everywhere!`,
+{ text:`Scene 8: Human vs Cat Toy Showdown\n\nToys everywhere!`,
   choices:[
     { text:"Destroy toys 🧸", effect:()=>{scores.chaos+=5; randomEmoji('🧸'); nextScene();} },
     { text:"Play nicely 😺", effect:()=>{scores.tuna+=2; nextScene();} },
     { text:"Ignore and nap 😸", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene9', text:`Scene 9: Socktopian Festival 🎉\n\nThe kingdom celebrates!`,
+{ text:`Scene 9: Socktopian Festival 🎉\n\nThe kingdom celebrates!`,
   choices:[
     { text:"Dance with socks 🧦", effect:()=>{scores.socks+=3; scores.chaos+=1; randomEmoji('🧦'); nextScene();} },
     { text:"Eat all festival tuna 🐟", effect:()=>{scores.tuna+=5; scores.chaos+=2; randomEmoji('🐟'); nextScene();} },
     { text:"Nap in the corner 😸", effect:()=>{scores.socks+=1; nextScene();} }
 ]},
-{ id:'scene10', text:`Scene 10: Chaos Finale 💥\n\nThe ultimate moment of Socktopian chaos!`,
+{ text:`Scene 10: Chaos Finale 💥\n\nThe ultimate moment of Socktopian chaos!`,
   choices:[
     { text:"Unleash total chaos 💥", effect:()=>{scores.chaos+=10; randomEmoji('💥'); nextScene();} },
     { text:"Collect all remaining tuna 🐟", effect:()=>{scores.tuna+=5; nextScene();} },
@@ -216,6 +120,7 @@ const tunaSpan = document.getElementById('tunaScore');
 const socksSpan = document.getElementById('socksScore');
 const chaosSpan = document.getElementById('chaosScore');
 const endingDiv = document.getElementById('ending');
+const cheatButton = document.getElementById('cheatButton');
 
 // --- Functions ---
 function updateScoreboard() {
@@ -242,14 +147,7 @@ function nextScene() {
 
 function showScene() {
   const s = scenes[sceneIndex];
-  sceneDiv.innerHTML = `<p>${s.text}</p>`;
-  s.choices.forEach(choice => {
-    const btn = document.createElement('button');
-    btn.className = 'choice';
-    btn.textContent = choice.text;
-    btn.addEventListener('click', choice.effect);
-    sceneDiv.appendChild(btn);
-  });
+  sceneDiv.innerHTML = `<p>${s.text}</p>` + s.choices.map((c,i)=>`<button class="choice" onclick="scenes[sceneIndex].choices[${i}].effect()">${c.text}</button>`).join('');
 }
 
 // --- Endings ---
@@ -257,27 +155,25 @@ function showEnding() {
   sceneDiv.style.display = 'none';
   let endingText = '';
 
-  if(scores.chaos >= 25) endingText = '💥 Chaos Master Ending! 💥\nCat reigns over Socktopia with total chaos!';
+  // Determine ending based on scores
+  if(scores.chaos >= 25) endingText = '💥 Chaos Master Ending!\nCat reigns over Socktopia with total chaos!';
   else if(scores.tuna >= 30 && scores.socks < 10) endingText = '🐟 Tuna Tycoon Ending 🐟\nCat hoards all the tuna in Socktopia!';
   else if(scores.socks >= 20) endingText = '🧦 Socktopian Overlord Ending 🧦\nCat sits on a throne of socks!';
   else if(scores.tuna >= 15 && scores.chaos >=5) endingText = '🌙 Moon Cat Ending 🌙\nCat teleports to the moon with snacks!';
   else if(scores.socks >=5 && scores.chaos>=5) endingText = '😹 Kittens’ Friend Ending 😹\nCat befriends all kittens amidst chaos!';
   else endingText = '😸 Neutral Napper Ending 😸\nCat naps peacefully.';
 
-  const endingId = endingText.split('\n')[0]; // use first line as unique ID
-  if(!unlockedEndings.includes(endingId)) unlockedEndings.push(endingId);
+  // Unlock endings
+  if(!unlockedEndings.includes(endingText)) unlockedEndings.push(endingText);
 
   endingText += `\n\nEndings unlocked: ${unlockedEndings.length}/6`;
 
+  // Secret Trophy
   if(unlockedEndings.length === 6) endingText += `\n\n🏆 SECRET TROPHY UNLOCKED! 🏆\nCat the 1st reigns supreme over ALL Socktopia! 🎉`;
 
   endingDiv.style.display='block';
   endingDiv.textContent = endingText + '\n\nClick below to play again!';
-  const btn = document.createElement('button');
-  btn.textContent = 'Play Again';
-  btn.addEventListener('click', resetGame);
-  endingDiv.appendChild(document.createElement('br'));
-  endingDiv.appendChild(btn);
+  endingDiv.innerHTML += '<br><button onclick="resetGame()">Play Again</button>';
 }
 
 function resetGame() {
@@ -288,6 +184,23 @@ function resetGame() {
   updateScoreboard();
   showScene();
 }
+
+// --- Cheat Button ---
+cheatButton.addEventListener('click', () => {
+    const endings = [
+        '💥 Chaos Master Ending!',
+        '🐟 Tuna Tycoon Ending 🐟',
+        '🧦 Socktopian Overlord Ending 🧦',
+        '🌙 Moon Cat Ending 🌙',
+        '😹 Kittens’ Friend Ending 😹',
+        '😸 Neutral Napper Ending 😸'
+    ];
+    endings.forEach(e => {
+        if(!unlockedEndings.includes(e)) unlockedEndings.push(e);
+    });
+    alert("🐾 Cheat activated! All endings unlocked. Secret Trophy available! 🏆");
+    showEnding();
+});
 
 // --- Start Game ---
 showScene();
