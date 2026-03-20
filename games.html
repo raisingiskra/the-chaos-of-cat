@@ -241,9 +241,9 @@ function showEnding() {
   const endingId = endingText.split('\n')[0]; // use first line as unique ID
   if(!unlockedEndings.includes(endingId)) unlockedEndings.push(endingId);
 
-  endingText += `\n\nEndings unlocked: ${unlockedEndings.length}/8`;
+  endingText += `\n\nEndings unlocked: ${unlockedEndings.length}/6`;
 
-  if(unlockedEndings.length === 8) endingText += `\n\n🏆 SECRET TROPHY UNLOCKED! 🏆\nCat the 1st reigns supreme over ALL Socktopia! 🎉`;
+  if(unlockedEndings.length === 6) endingText += `\n\n🏆 SECRET TROPHY UNLOCKED! 🏆\nCat the 1st reigns supreme over ALL Socktopia! 🎉`;
 
   endingDiv.style.display='block';
   endingDiv.textContent = endingText + '\n\nClick below to play again!';
