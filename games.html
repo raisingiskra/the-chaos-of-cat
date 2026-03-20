@@ -115,6 +115,32 @@ Tuna: <span id="tunaScore">0</span> | Socks: <span id="socksScore">0</span> | Ch
 </footer>
 
 <script>
+  // --- Cheat Snippet: Unlock All Endings Instantly ---
+function unlockAllEndings() {
+    // Fill the unlockedEndings array with all endings
+    const endings = [
+        '💥 Chaos Master Ending!',
+        '🐟 Tuna Tycoon Ending 🐟',
+        '🧦 Socktopian Overlord Ending 🧦',
+        '🌙 Moon Cat Ending 🌙',
+        '😹 Kittens’ Friend Ending 😹',
+        '😸 Neutral Napper Ending 😸'
+    ];
+    
+    endings.forEach(e => {
+        if(!unlockedEndings.includes(e)) unlockedEndings.push(e);
+    });
+
+    alert("🐾 Cheat activated! All endings unlocked. Secret Trophy available! 🏆");
+    showEnding(); // Immediately show ending screen
+}
+
+// --- Optional: Bind to a key for easy cheat access ---
+document.addEventListener('keydown', (e) => {
+    if(e.key === "C") { // Press 'C' for Cat Cheat
+        unlockAllEndings();
+    }
+});
 // --- Game State ---
 let sceneIndex = 0;
 let scores = {tuna:0, socks:0, chaos:0};
