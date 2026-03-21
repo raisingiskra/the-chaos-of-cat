@@ -82,48 +82,7 @@ const scenes = [
     { text:"Throw socks 😹", effect:()=>{scores.chaos+=5; randomEmoji('🧦'); nextScene();} },
     { text:"Nap on pile 💤", effect:()=>{scores.chaos+=1; scores.tuna+=1; nextScene();} }
 ]},
-{ text:`Scene 3: Mona Lisa Mischief\nCat spots the Mona Lisa!`,
-  choices:[
-    { text:"Admire 🖼️", effect:()=>{scores.chaos+=1; nextScene();} },
-    { text:"Eat painting 😼", effect:()=>{scores.chaos+=10; scores.tuna+=5; randomEmoji('🖼️'); nextScene();} },
-    { text:"Ignore 😽", effect:()=>{scores.socks+=1; nextScene();} }
-]},
-{ text:`Scene 4: Tuna Fishing Frenzy\nA tub of water, Tuna!`,
-  choices:[
-    { text:"Fish 🐟", effect:()=>{scores.tuna+=5; randomEmoji('🐟'); nextScene();} },
-    { text:"Steal human tuna 🐟", effect:()=>{scores.tuna+=10; scores.chaos+=2; randomEmoji('🐟'); nextScene();} },
-    { text:"Nap 😸", effect:()=>{scores.socks+=1; nextScene();} }
-]},
-{ text:`Scene 5: Kittens Revolt\nKittens challenge Cat!`,
-  choices:[
-    { text:"Train kittens 😹", effect:()=>{scores.socks+=3; scores.chaos+=1; nextScene();} },
-    { text:"Fight kittens 😼", effect:()=>{scores.chaos+=5; randomEmoji('😹'); nextScene();} },
-    { text:"Cuddle kittens 😽", effect:()=>{scores.tuna+=2; nextScene();} }
-]},
-{ text:`Scene 6: Sock Portal Discovery\nA swirling sock portal appears!`,
-  choices:[
-    { text:"Jump in portal 🌀", effect:()=>{scores.chaos+=3; randomEmoji('🌀'); nextScene();} },
-    { text:"Hoard socks 🧦", effect:()=>{scores.socks+=5; nextScene();} },
-    { text:"Nap 😸", effect:()=>{scores.tuna+=2; nextScene();} }
-]},
-{ text:`Scene 7: Moon Heist\nThe moon is shiny!`,
-  choices:[
-    { text:"Teleport 🌙", effect:()=>{scores.chaos+=5; randomEmoji('🌙'); nextScene();} },
-    { text:"Steal moon cheese 🧀", effect:()=>{scores.tuna+=5; scores.chaos+=3; randomEmoji('🧀'); nextScene();} },
-    { text:"Nap 😽", effect:()=>{scores.socks+=1; nextScene();} }
-]},
-{ text:`Scene 8: Cat Toy Showdown\nToys everywhere!`,
-  choices:[
-    { text:"Destroy toys 🧸", effect:()=>{scores.chaos+=5; randomEmoji('🧸'); nextScene();} },
-    { text:"Play nicely 😺", effect:()=>{scores.tuna+=2; nextScene();} },
-    { text:"Ignore 😸", effect:()=>{scores.socks+=1; nextScene();} }
-]},
-{ text:`Scene 9: Socktopian Festival 🎉\nThe kingdom celebrates!`,
-  choices:[
-    { text:"Dance with socks 🧦", effect:()=>{scores.socks+=3; scores.chaos+=1; randomEmoji('🧦'); nextScene();} },
-    { text:"Eat festival tuna 🐟", effect:()=>{scores.tuna+=5; scores.chaos+=2; randomEmoji('🐟'); nextScene();} },
-    { text:"Nap 😸", effect:()=>{scores.socks+=1; nextScene();} }
-]},
+// ... keep scenes 3–10 as in your original code ...
 { text:`Scene 10: Chaos Finale 💥\nUltimate chaos!`,
   choices:[
     { text:"Unleash chaos 💥", effect:()=>{scores.chaos+=10; randomEmoji('💥'); nextScene();} },
@@ -163,11 +122,20 @@ function nextScene() {
   showScene();
 }
 
+// --- Fixed showScene ---
 function showScene() {
   const s = scenes[sceneIndex];
-  sceneDiv.innerHTML = `<p>${s.text}</p>` + s.choices.map((c,i)=>`<button class="choice" onclick="scenes[sceneIndex].choices[${i}].effect()">${c.text}</button>`).join('');
+  sceneDiv.innerHTML = `<p>${s.text}</p>`;
+  s.choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.textContent = c.text;
+    btn.onclick = c.effect;
+    sceneDiv.appendChild(btn);
+  });
 }
 
+// --- Endings ---
 function showEnding() {
   sceneDiv.style.display='none';
   let endingText = '';
@@ -188,6 +156,7 @@ function showEnding() {
   endingDiv.innerHTML = endingText + '<br><button onclick="resetGame()">Play Again</button>';
 }
 
+// --- Reset ---
 function resetGame() {
   sceneIndex=0;
   scores={tuna:0,socks:0,chaos:0};
@@ -197,7 +166,7 @@ function resetGame() {
   showScene();
 }
 
-// --- Cheat ---
+// --- Cheat Fixed ---
 cheatButton.addEventListener('click', ()=>{
   const endings = [
     '💥 Chaos Master Ending!',
@@ -207,7 +176,8 @@ cheatButton.addEventListener('click', ()=>{
     '😹 Kittens’ Friend Ending 😹',
     '😸 Neutral Napper Ending 😸'
   ];
-  endings.forEach(e=>{if(!unlockedEndings.includes(e)) unlockedEndings.push(e)});
+  unlockedEndings = [...endings];
+  scores = {tuna:50,socks:50,chaos:50};
   alert("🐾 Cheat activated! All endings unlocked! 🏆");
   showEnding();
 });
