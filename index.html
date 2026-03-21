@@ -17,6 +17,20 @@
       background-size: cover;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating Socks Animation */
+    .sock {
+      position: absolute;
+      width: 50px;
+      opacity: 0.7;
+      animation: float 15s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(-100px) translateX(0); }
+      100% { transform: translateY(110vh) translateX(50px); }
     }
 
     /* Title Div */
@@ -25,7 +39,7 @@
         background-color: white;
         text-align: center;
         padding: 20px;
-        margin:40px auto;
+        margin: 40px auto;
         width: 80%;
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
         border-radius: 15px;
@@ -34,15 +48,20 @@
     /* Container for Cards */
     .container {
         display: flex;
-        justify-content: space-between; /* hug edges of container */
-        gap: 20px; /* small gap between cards */
-        width: 80%; /* same as title */
-        margin: 20px auto; /* center container */
+        justify-content: space-between;
+        gap: 20px;
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .container a {
+        display: block;
+        flex: 1;
+        text-decoration: none;
     }
 
     /* Cards Styles */
     .tunaclickergame, .catstories {
-        flex: 1; /* equal width */
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
         padding: 20px;
@@ -60,6 +79,11 @@
         background-color: #EED9C4;
     }
 
+    .tunaclickergame p, .catstories p {
+        font-size: 30px;
+        margin: 0;
+    }
+
     /* Hover Effects */
     .tunaclickergame:hover, .catstories:hover {
         transform: scale(1.05);
@@ -67,13 +91,38 @@
         cursor: pointer;
     }
 
-    /* Main and Footer */
-    main { flex: 1; }
+    /* Click Wiggle Animation */
+    .wiggle {
+        animation: wiggle 0.3s;
+    }
+    @keyframes wiggle {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        50% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    /* Footer */
     footer {
       background-color: white;
       text-align: center;
       padding: 10px;
       border-top: solid black 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Pawprint Parade */
+    .paw {
+      position: absolute;
+      font-size: 20px;
+      animation: pawMove 8s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes pawMove {
+      0% { left: -30px; }
+      100% { left: 100%; }
     }
 
     /* Responsive Design */
@@ -87,6 +136,11 @@
 </head>
 <body>
 
+  <!-- Floating Socks -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Sock_icon.png/50px-Sock_icon.png" class="sock" style="left:10%; animation-delay:0s;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Sock_icon.png/50px-Sock_icon.png" class="sock" style="left:50%; animation-delay:5s;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Sock_icon.png/50px-Sock_icon.png" class="sock" style="left:80%; animation-delay:10s;">
+
   <!-- Title -->
   <div class="divtitle">
     <h1>Welcome to Socktopia, the kingdom of Cat the 1st.</h1>
@@ -97,23 +151,33 @@
   <main>
     <div class="container">
       <a href="games.html">
-        <div class="tunaclickergame">
-          <p style="font-size:30px;">🐟 Tuna Story Game! 🐟</p>
+        <div class="tunaclickergame" onclick="wiggleCard(this)">
+          <p>🐟 Tuna Story Game! 🐟</p>
         </div>
       </a>
-      
       <a href="stories.html">
-        <div class="catstories">
-          <p style="font-size:30px;">📔 Cat's Stories! 📔</p>
+        <div class="catstories" onclick="wiggleCard(this)">
+          <p>📔 Cat's Stories! 📔</p>
         </div>
       </a>
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer with Paw Parade -->
   <footer>
     &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾 🐾 🐾
+    <span class="paw" style="top:0;">🐾</span>
+    <span class="paw" style="top:15px; animation-delay:2s;">🐾</span>
+    <span class="paw" style="top:30px; animation-delay:4s;">🐾</span>
   </footer>
+
+  <script>
+    // Click wiggle function
+    function wiggleCard(el) {
+      el.classList.add('wiggle');
+      setTimeout(() => el.classList.remove('wiggle'), 300);
+    }
+  </script>
 
 </body>
 </html>
