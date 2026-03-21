@@ -5,12 +5,7 @@
   <title>Cat's Socktopia</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
   <style>
-    .container {
-  display: flex;         
-  gap: 20px;             
-  justify-content: center;
-  align-items: flex-start; 
-}
+    /* General Page Styles */
     html, body {
       height: 100%;
       margin: 0;
@@ -21,48 +16,10 @@
       background-position: center;
       background-size: cover;
       display: flex;
-      flex-direction: column; /* stack header, main, footer vertically */
+      flex-direction: column;
     }
 
-    .tunaclickergame {
-      border: solid #2B7DB5 5px;
-      background-color: #4AA5E0;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      border-radius: 15px;
-      position: relative;
-      padding:10px;
-      width:100%;
-    }
-
-    h1 { margin-top: 0; }
-    p { font-size: 1.2em; }
-
-    main {
-      flex: 1; /* takes all available space between header and footer */
-    }
-
-    footer {
-      background-color: white;
-      text-align: center;
-      padding: 10px;
-      border-top: solid black 3px;
-    }
-    .catstories {
-      border: solid #A67B5B 5px;
-      background-color: #EED9C4;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      border-radius: 15px;
-      position: relative;
-      padding:10px;
-      width:100%;
-    }
-
-  </style>
-</head>
-<body>
-  <style>
+    /* Title Div */
     .divtitle {
         border: solid black 5px;
         background-color: white;
@@ -73,30 +30,90 @@
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
         border-radius: 15px;
     }
+
+    /* Container for Cards */
+    .container {
+        display: flex;
+        justify-content: space-between; /* hug edges of container */
+        gap: 20px; /* small gap between cards */
+        width: 80%; /* same as title */
+        margin: 20px auto; /* center container */
+    }
+
+    /* Cards Styles */
+    .tunaclickergame, .catstories {
+        flex: 1; /* equal width */
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tunaclickergame {
+        border: solid #2B7DB5 5px;
+        background-color: #4AA5E0;
+    }
+
+    .catstories {
+        border: solid #A67B5B 5px;
+        background-color: #EED9C4;
+    }
+
+    /* Hover Effects */
+    .tunaclickergame:hover, .catstories:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(0,0,0,0.7);
+        cursor: pointer;
+    }
+
+    /* Main and Footer */
+    main { flex: 1; }
+    footer {
+      background-color: white;
+      text-align: center;
+      padding: 10px;
+      border-top: solid black 3px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 800px) {
+        .container {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
   </style>
+</head>
+<body>
+
+  <!-- Title -->
   <div class="divtitle">
     <h1>Welcome to Socktopia, the kingdom of Cat the 1st.</h1>
     <p>Cat: This is my "website", courtesy of human ruler Me. You may gaze upon my literature, entertaining games, and more.</p>
   </div>
 
+  <!-- Main Cards -->
   <main>
     <div class="container">
-    <a href="games.html">
-    <div class="tunaclickergame">
-      <p style="font-size:30px;">🐟 Tuna Story Game! 🐟</p>
-    </div>
-    </a>
-    
-    <a href="stories.html">
-      <div class="catstories">
-        <p style="font-size:30px;">📔 Cat's Stories! 📔</p>
-      </div>
-    </a>
+      <a href="games.html">
+        <div class="tunaclickergame">
+          <p style="font-size:30px;">🐟 Tuna Story Game! 🐟</p>
+        </div>
+      </a>
+      
+      <a href="stories.html">
+        <div class="catstories">
+          <p style="font-size:30px;">📔 Cat's Stories! 📔</p>
+        </div>
+      </a>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
-    &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
+    &copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾 🐾 🐾
   </footer>
+
 </body>
 </html>
