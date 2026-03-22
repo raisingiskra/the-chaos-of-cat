@@ -17,6 +17,7 @@ header, footer {
   background:#111;
 }
 h1 { text-shadow:0 0 15px #0ff; }
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -25,6 +26,7 @@ h1 { text-shadow:0 0 15px #0ff; }
   width:90%;
   margin:0 auto;
 }
+
 .gallery img {
   width:100%;
   border-radius:15px;
@@ -36,6 +38,7 @@ h1 { text-shadow:0 0 15px #0ff; }
   transform: scale(1.05);
   box-shadow: 0 0 20px #0ff;
 }
+
 /* Lightbox Overlay */
 #lightboxOverlay {
   position: fixed;
@@ -69,15 +72,17 @@ h1 { text-shadow:0 0 15px #0ff; }
 </header>
 
 <div class="gallery">
-  <!-- Replace these src URLs with your own images -->
-  <img src="https://placekitten.com/300/200" alt="Cat conquers tuna!">
-  <img src="https://placekitten.com/301/200" alt="Sock hoarding display">
-  <img src="https://placekitten.com/302/200" alt="Chaos unleashed!">
-  <img src="https://placekitten.com/303/200" alt="Nap in majestic glory">
-  <img src="https://placekitten.com/304/200" alt="Cat atop Sock Throne">
-  <img src="https://placekitten.com/305/200" alt="Tuna victory scene">
-  <img src="images/my_royal_cat5.jpg" alt="Cat atop Sock Throne">
-  <img src="images/my_royal_cat6.jpg" alt="Tuna victory scene">
+  <!-- Row 1 (grid images, small version) -->
+  <img src="images/cat_grid1.jpg" data-full="images/cat_full1.jpg" alt="Cat conquers tuna!">
+  <img src="images/cat_grid2.jpg" data-full="images/cat_full2.jpg" alt="Sock hoarding display">
+  <img src="images/cat_grid3.jpg" data-full="images/cat_full3.jpg" alt="Chaos unleashed!">
+  <img src="images/cat_grid4.jpg" data-full="images/cat_full4.jpg" alt="Nap in majestic glory">
+
+  <!-- Row 2 (more images) -->
+  <img src="images/cat_grid5.jpg" data-full="images/cat_full5.jpg" alt="Cat atop Sock Throne">
+  <img src="images/cat_grid6.jpg" data-full="images/cat_full6.jpg" alt="Tuna victory scene">
+  <img src="images/cat_grid7.jpg" data-full="images/cat_full7.jpg" alt="Sock avalanche!">
+  <img src="images/cat_grid8.jpg" data-full="images/cat_full8.jpg" alt="Majestic nap session">
 </div>
 
 <!-- Lightbox Overlay -->
@@ -98,8 +103,9 @@ const lightboxImage = lightboxOverlay.querySelector('img');
 
 galleryImages.forEach(img => {
   img.addEventListener('click', () => {
-    lightboxImage.src = img.src;       // Show your image here
-    lightboxImage.alt = img.alt;       // Show alt text
+    // Use the high-resolution version from data-full
+    lightboxImage.src = img.dataset.full;
+    lightboxImage.alt = img.alt;
     lightboxOverlay.style.display = 'flex';
   });
 });
