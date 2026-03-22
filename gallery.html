@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Socktopia Gallery 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Chewy', sans-serif;
+  margin:0;
+  background: linear-gradient(to bottom, #0b1e3f, #1a406b);
+  color:white;
+}
+header, footer {
+  text-align:center;
+  padding:15px;
+  background:#111;
+}
+h1 { text-shadow:0 0 15px #0ff; }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap:15px;
+  padding:20px;
+  width:90%;
+  margin:0 auto;
+}
+.gallery img {
+  width:100%;
+  border-radius:15px;
+  border: 3px solid #0C325B;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor:pointer;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0ff;
+}
+/* Lightbox Overlay */
+#lightboxOverlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#lightboxOverlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 3px solid #0ff;
+  border-radius: 15px;
+}
+#lightboxOverlay span {
+  position: absolute;
+  top:20px; right:30px;
+  font-size:2em;
+  cursor:pointer;
+  color:#0ff;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🐾 Socktopia Gallery 🐾</h1>
+<p>Behold the majestic deeds of Cat the 1st! Click an image to enlarge.</p>
+</header>
+
+<div class="gallery">
+  <!-- Replace these src URLs with your own images -->
+  <img src="https://placekitten.com/300/200" alt="Cat conquers tuna!">
+  <img src="https://placekitten.com/301/200" alt="Sock hoarding display">
+  <img src="https://placekitten.com/302/200" alt="Chaos unleashed!">
+  <img src="https://placekitten.com/303/200" alt="Nap in majestic glory">
+  <img src="https://placekitten.com/304/200" alt="Cat atop Sock Throne">
+  <img src="https://placekitten.com/305/200" alt="Tuna victory scene">
+</div>
+
+<!-- Lightbox Overlay -->
+<div id="lightboxOverlay">
+  <span onclick="closeLightbox()">✖</span>
+  <img src="" alt="Expanded view">
+</div>
+
+<footer>
+&copy; 2026 Socktopia – All rights reserved by Your Socktopian Cat Majesty 🐾
+</footer>
+
+<script>
+// --- Lightbox functionality ---
+const galleryImages = document.querySelectorAll('.gallery img');
+const lightboxOverlay = document.getElementById('lightboxOverlay');
+const lightboxImage = lightboxOverlay.querySelector('img');
+
+galleryImages.forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImage.src = img.src;       // Show your image here
+    lightboxImage.alt = img.alt;       // Show alt text
+    lightboxOverlay.style.display = 'flex';
+  });
+});
+
+function closeLightbox() {
+  lightboxOverlay.style.display = 'none';
+}
+</script>
+
+</body>
+</html>
